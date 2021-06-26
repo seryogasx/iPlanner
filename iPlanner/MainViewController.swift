@@ -10,6 +10,7 @@ import UIKit
 class MainViewController: UIViewController {
 
     let cellIdentifier = "MainTableViewCell"
+    let headerID = "TableHeaderView"
     let sections = ["Избранное", "Контакты", "Действия"]
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,7 +21,15 @@ class MainViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        setupTable()
+    }
+    
+    func setupTable() {
         tableView.register(UINib(nibName: "MainTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        
+        let nib = UINib(nibName: headerID, bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: headerID)
+        tableView.tableFooterView = UIView()
     }
     
     func getHeightForTableCell() -> Int {
@@ -42,7 +51,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,10 +65,24 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(getHeightForTableCell())
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
 }
 
 extension MainViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerID) as? TableHeaderView else {
+            return UITableViewHeaderFooterView()
+        }
+        header.setup(title: sections[section])
+        return header
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
 }
 
 //class flow: UICollectionViewFlowLayout {

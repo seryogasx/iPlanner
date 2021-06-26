@@ -10,6 +10,8 @@ import UIKit
 class MainTableViewCell: UITableViewCell {
     
     let cellIdentifier = "MainCollectionViewCell"
+    var content: Array<String> = []
+    var size = CGSize()
     
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -31,10 +33,9 @@ class MainTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
     func setup(size: CGSize, content: Array<String>) {
-//        frame.height = size.height
-//        frame.
+        self.content = content
+        self.size = size
     }
     
 }
@@ -43,14 +44,14 @@ class MainTableViewCell: UITableViewCell {
 extension MainTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return content.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? MainCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setup(title: "hello there")
+        cell.setup(title: content[indexPath.item])
         return cell
     }
 }
