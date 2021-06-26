@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gj9-Fv-9pr">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Zwk-fm-5cx">
+            <objects>
+                <viewController id="Gj9-Fv-9pr" customClass="ViewController" customModule="iPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W5w-jk-YBa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fmt-RF-f46">
+                                <rect key="frame" x="60" y="354" width="294" height="188"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите логин" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MPo-7l-T5b">
+                                        <rect key="frame" x="0.0" y="0.0" width="294" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5F7-Wl-Jh8">
+                                        <rect key="frame" x="0.0" y="54" width="294" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6G-vH-u5P" userLabel="LoginButton">
+                                        <rect key="frame" x="0.0" y="108" width="294" height="30"/>
+                                        <state key="normal" title="Войти"/>
+                                        <connections>
+                                            <action selector="LoginButtonPush:" destination="Gj9-Fv-9pr" eventType="touchUpInside" id="Y2U-Ny-uVq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bof-bc-zAc" userLabel="EnterWithoutLoginButton">
+                                        <rect key="frame" x="0.0" y="158" width="294" height="30"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                        <state key="normal" title="Продолжить без входа"/>
+                                        <connections>
+                                            <action selector="EnterWithoutLoginButtonPush:" destination="Gj9-Fv-9pr" eventType="touchUpInside" id="C5n-Zr-70J"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="71e-4t-z3x"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Fmt-RF-f46" firstAttribute="centerY" secondItem="W5w-jk-YBa" secondAttribute="centerY" id="Bye-rH-0qo"/>
+                            <constraint firstItem="71e-4t-z3x" firstAttribute="trailing" secondItem="Fmt-RF-f46" secondAttribute="trailing" constant="60" id="Fyj-oy-whL"/>
+                            <constraint firstItem="Fmt-RF-f46" firstAttribute="leading" secondItem="71e-4t-z3x" secondAttribute="leading" constant="60" id="KOF-OH-7aV"/>
+                            <constraint firstItem="Fmt-RF-f46" firstAttribute="centerX" secondItem="W5w-jk-YBa" secondAttribute="centerX" id="lA3-6L-L56"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="EnterWithoutLoginButton" destination="Bof-bc-zAc" id="FSv-tX-kgf"/>
+                        <outlet property="LoginButton" destination="m6G-vH-u5P" id="CYA-DO-VCE"/>
+                        <outlet property="LoginTextField" destination="MPo-7l-T5b" id="Juc-K6-F5a"/>
+                        <outlet property="SecureTextField" destination="5F7-Wl-Jh8" id="3u8-Nf-eYc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wj3-hm-uFE" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="114"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
