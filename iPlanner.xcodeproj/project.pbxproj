@@ -15,6 +15,9 @@
 		A632E22C2687685000CAFF2E /* MainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A632E22A2687685000CAFF2E /* MainTableViewCell.xib */; };
 		A632E22E2687976000CAFF2E /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A632E22D2687976000CAFF2E /* TableHeaderView.swift */; };
 		A632E2312687978300CAFF2E /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A632E2302687978300CAFF2E /* TableHeaderView.xib */; };
+		A632E2362687B18600CAFF2E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A632E2342687B18600CAFF2E /* DetailViewController.swift */; };
+		A632E2372687B18600CAFF2E /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A632E2352687B18600CAFF2E /* DetailViewController.xib */; };
+		A65612932698B61E00A1B945 /* NotesCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65612922698B61E00A1B945 /* NotesCollectionViewLayout.swift */; };
 		A67B3ACD2684696400FF3AB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B3ACC2684696400FF3AB6 /* AppDelegate.swift */; };
 		A67B3ACF2684696400FF3AB6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B3ACE2684696400FF3AB6 /* SceneDelegate.swift */; };
 		A67B3AD12684696400FF3AB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B3AD02684696400FF3AB6 /* ViewController.swift */; };
@@ -32,6 +35,9 @@
 		A632E22A2687685000CAFF2E /* MainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTableViewCell.xib; sourceTree = "<group>"; };
 		A632E22D2687976000CAFF2E /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		A632E2302687978300CAFF2E /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
+		A632E2342687B18600CAFF2E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		A632E2352687B18600CAFF2E /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		A65612922698B61E00A1B945 /* NotesCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewLayout.swift; sourceTree = "<group>"; };
 		A67B3AC92684696400FF3AB6 /* iPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67B3ACC2684696400FF3AB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A67B3ACE2684696400FF3AB6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,12 +87,15 @@
 				A67B3ADA2684696500FF3AB6 /* Info.plist */,
 				A632E21F26873B8100CAFF2E /* MainViewController.swift */,
 				A67B3AD22684696400FF3AB6 /* Main.storyboard */,
-				A632E22326873F9500CAFF2E /* MainCollectionViewCell.swift */,
-				A632E22426873F9500CAFF2E /* MainCollectionViewCell.xib */,
-				A632E2292687685000CAFF2E /* MainTableViewCell.swift */,
-				A632E22A2687685000CAFF2E /* MainTableViewCell.xib */,
 				A632E22D2687976000CAFF2E /* TableHeaderView.swift */,
 				A632E2302687978300CAFF2E /* TableHeaderView.xib */,
+				A632E2292687685000CAFF2E /* MainTableViewCell.swift */,
+				A632E22A2687685000CAFF2E /* MainTableViewCell.xib */,
+				A632E22326873F9500CAFF2E /* MainCollectionViewCell.swift */,
+				A632E22426873F9500CAFF2E /* MainCollectionViewCell.xib */,
+				A632E2342687B18600CAFF2E /* DetailViewController.swift */,
+				A632E2352687B18600CAFF2E /* DetailViewController.xib */,
+				A65612922698B61E00A1B945 /* NotesCollectionViewLayout.swift */,
 			);
 			path = iPlanner;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 				A632E2312687978300CAFF2E /* TableHeaderView.xib in Resources */,
 				A632E22C2687685000CAFF2E /* MainTableViewCell.xib in Resources */,
 				A632E22226873C2900CAFF2E /* Login.storyboard in Resources */,
+				A632E2372687B18600CAFF2E /* DetailViewController.xib in Resources */,
 				A67B3AD92684696500FF3AB6 /* LaunchScreen.storyboard in Resources */,
 				A67B3AD62684696500FF3AB6 /* Assets.xcassets in Resources */,
 				A632E22626873F9500CAFF2E /* MainCollectionViewCell.xib in Resources */,
@@ -165,9 +175,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A632E2362687B18600CAFF2E /* DetailViewController.swift in Sources */,
 				A67B3AD12684696400FF3AB6 /* ViewController.swift in Sources */,
 				A67B3ACD2684696400FF3AB6 /* AppDelegate.swift in Sources */,
 				A632E22526873F9500CAFF2E /* MainCollectionViewCell.swift in Sources */,
+				A65612932698B61E00A1B945 /* NotesCollectionViewLayout.swift in Sources */,
 				A67B3ACF2684696400FF3AB6 /* SceneDelegate.swift in Sources */,
 				A632E22B2687685000CAFF2E /* MainTableViewCell.swift in Sources */,
 				A632E22E2687976000CAFF2E /* TableHeaderView.swift in Sources */,

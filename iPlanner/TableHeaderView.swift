@@ -14,7 +14,6 @@ class TableHeaderView: UITableViewHeaderFooterView {
     func setup(title: String) {
         self.title.text = title
         self.title.font = UIFont.boldSystemFont(ofSize: 24.0)
-//        self.backgroundColor = UIColor.clear
     }
 
     /*

@@ -6,21 +6,68 @@
 //
 
 import UIKit
+import Contacts
+
+struct Contact {
+    var firstname: String
+    var secondName: String
+    var company: String
+    
+    var count: Int {
+        return firstname.count + secondName.count + company.count
+    }
+    var fullName: String {
+        return firstname + " " + secondName
+    }
+}
 
 class MainViewController: UIViewController {
 
     let cellIdentifier = "MainTableViewCell"
     let headerID = "TableHeaderView"
-    let sections = ["Избранное", "Контакты", "Действия"]
+    let headerHeight = 30
+    
+//    let sections = ["Избранное", "Контакты", "Действия"].sorted()
+//    let favorites = ["Jenka"/*, "Kaban", "Koreya"*/].sorted()
+//    let contacts = ["Jenka", "Ilyas", "Nekit", "Psina", "Lexaaaaa", "Kurlyk", "Kukarek"].sorted()
+//    let actions = ["Подарок", "Купить"/*, "Позвонить", "Заплатить"*/].sorted()
+    
+    let sections: [String] = ["Избранное", "Контакты", "Действия"]
+    var favorites: [String] = []
+    var contacts: [String] = ["aa", "b", "ccc", "dddd", "eeeee", "fffffffffffffffffffffffffffffff"]
+    var actions: [String] = ["Купить", "Подарить"]
     
     @IBOutlet weak var tableView: UITableView!
     
+    private func getContacts() {
+        let store = CNContactStore()
+        store.requestAccess(for: .contacts) { (granted, error) in
+            if let error = error {
+                print("failed to access contacts!")
+                return
+            }
+            if granted {
+                let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactOrganizationNameKey]
+                let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+                do {
+                    try store.enumerateContacts(with: request) { (contact, stopPointer) in
+                        self.contacts.append(Contact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName).fullName)
+                    }
+                } catch let error {
+                    print("failed to parse contacts!")
+                }
+            } else {
+                print("access denied!")
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.alwaysBounceVertical = false
+        getContacts()
         setupTable()
     }
     
@@ -32,8 +79,8 @@ class MainViewController: UIViewController {
         tableView.tableFooterView = UIView()
     }
     
-    func getHeightForTableCell() -> Int {
-        return Int(UIScreen.main.bounds.height) / 3
+    func getHeightForTableCell(_ section: Int) -> Int {
+        return (Int(UIScreen.main.bounds.height) / 3) - 3 * headerHeight
     }
     
 
@@ -58,12 +105,21 @@ extension MainViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? MainTableViewCell else {
             return UITableViewCell()
         }
-        cell.setup(size: CGSize(width: 100, height: 100), content: ["hello", "hi"])
+        cell.setup(content: indexPath.section == 0 ? favorites : indexPath.section == 1  ? contacts : actions)
+        cell.parentViewController = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(getHeightForTableCell())
+//        if indexPath.section == 0 && favorites.count < 3 {
+//            return CGFloat(getHeightForTableCell(indexPath.section) * favorites.count / 3)
+//        } else if indexPath.section == 1 && contacts.count < 3 {
+//            return CGFloat(getHeightForTableCell(indexPath.section) * contacts.count / 3)
+//        } else if indexPath.section == 2 && actions.count < 3 {
+//            return CGFloat(getHeightForTableCell(indexPath.section) * actions.count / 3)
+//        }
+        return CGFloat(getHeightForTableCell(indexPath.section))
+//        return UITableView.
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -84,97 +140,3 @@ extension MainViewController: UITableViewDelegate {
         return 50
     }
 }
-
-//class flow: UICollectionViewFlowLayout {
-//
-//    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-//        return true
-//    }
-//
-//    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-//        guard let layoutAttributes = super.layoutAttributesForElements(in: rect) else {
-//            return nil
-//        }
-//
-//        let sectionsToAdd = NSMutableIndexSet()
-//        var newLayoutAttributes = [UICollectionViewLayoutAttributes]()
-//
-//        for layoutAttributesSet in layoutAttributes {
-//            if layoutAttributesSet.representedElementCategory == .cell {
-//                newLayoutAttributes.append(layoutAttributesSet)
-//                sectionsToAdd.add(layoutAttributesSet.indexPath.section)
-//            } else if layoutAttributesSet.representedElementCategory == .supplementaryView {
-//                sectionsToAdd.add(layoutAttributesSet.indexPath.section)
-//            }
-//        }
-//
-//        for section in sectionsToAdd {
-//            let indexPath = IndexPath(item: 0, section: section)
-//
-//            if let sectionAttributes = self.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) {
-//                newLayoutAttributes.append(sectionAttributes)
-//            }
-//        }
-//
-//        return newLayoutAttributes
-//    }
-//
-//    func boundaries(forSection section: Int) -> (minimum: CGFloat, maximum: CGFloat)? {
-//        // Helpers
-//        var result = (minimum: CGFloat(0.0), maximum: CGFloat(0.0))
-//
-//        // Exit Early
-//        guard let collectionView = collectionView else { return result }
-//
-//        // Fetch Number of Items for Section
-//        let numberOfItems = collectionView.numberOfItems(inSection: section)
-//
-//        // Exit Early
-//        guard numberOfItems > 0 else { return result }
-//
-//        if let firstItem = layoutAttributesForItem(at: IndexPath(item: 0, section: section)),
-//           let lastItem = layoutAttributesForItem(at: IndexPath(item: (numberOfItems - 1), section: section)) {
-//            result.minimum = firstItem.frame.minY
-//            result.maximum = lastItem.frame.maxY
-//
-//            // Take Header Size Into Account
-//            result.minimum -= headerReferenceSize.height
-//            result.maximum -= headerReferenceSize.height
-//
-//            // Take Section Inset Into Account
-//            result.minimum -= sectionInset.top
-//            result.maximum += (sectionInset.top + sectionInset.bottom)
-//        }
-//
-//        return result
-//    }
-//
-//    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-//        guard let layoutAttributes = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath) else {
-//            return nil
-//        }
-//
-//        guard
-//            let boundaries = boundaries(forSection: indexPath.section),
-//            let collectionView = collectionView
-//        else { return layoutAttributes}
-//
-//        let contentOffsetY = collectionView.contentOffset.y
-//        var frameForSupplementaryView = layoutAttributes.frame
-//
-//        let minimum = boundaries.minimum - frameForSupplementaryView.height
-//        let maximum = boundaries.maximum - frameForSupplementaryView.height
-//
-//        if contentOffsetY < minimum {
-//            frameForSupplementaryView.origin.y = minimum
-//        } else if contentOffsetY > maximum {
-//            frameForSupplementaryView.origin.y = maximum
-//        } else {
-//            frameForSupplementaryView.origin.y = contentOffsetY
-//        }
-//
-//        layoutAttributes.frame = frameForSupplementaryView
-//
-//        return layoutAttributes
-//    }
-//}
