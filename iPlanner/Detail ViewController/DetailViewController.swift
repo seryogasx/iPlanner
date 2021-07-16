@@ -9,7 +9,6 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var sectionsInDetailVC = [""]
     var contact: String?
     var action: String?
     

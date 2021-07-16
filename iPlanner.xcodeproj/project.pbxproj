@@ -17,13 +17,13 @@
 		A632E2312687978300CAFF2E /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A632E2302687978300CAFF2E /* TableHeaderView.xib */; };
 		A632E2362687B18600CAFF2E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A632E2342687B18600CAFF2E /* DetailViewController.swift */; };
 		A632E2372687B18600CAFF2E /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A632E2352687B18600CAFF2E /* DetailViewController.xib */; };
-		A65612932698B61E00A1B945 /* NotesCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65612922698B61E00A1B945 /* NotesCollectionViewLayout.swift */; };
 		A67B3ACD2684696400FF3AB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B3ACC2684696400FF3AB6 /* AppDelegate.swift */; };
 		A67B3ACF2684696400FF3AB6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B3ACE2684696400FF3AB6 /* SceneDelegate.swift */; };
 		A67B3AD12684696400FF3AB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67B3AD02684696400FF3AB6 /* ViewController.swift */; };
 		A67B3AD42684696400FF3AB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67B3AD22684696400FF3AB6 /* Main.storyboard */; };
 		A67B3AD62684696500FF3AB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A67B3AD52684696500FF3AB6 /* Assets.xcassets */; };
 		A67B3AD92684696500FF3AB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67B3AD72684696500FF3AB6 /* LaunchScreen.storyboard */; };
+		A692670526A2077900ACCBD2 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A692670426A2077900ACCBD2 /* GridLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,6 @@
 		A632E2302687978300CAFF2E /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		A632E2342687B18600CAFF2E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A632E2352687B18600CAFF2E /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
-		A65612922698B61E00A1B945 /* NotesCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewLayout.swift; sourceTree = "<group>"; };
 		A67B3AC92684696400FF3AB6 /* iPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67B3ACC2684696400FF3AB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A67B3ACE2684696400FF3AB6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +45,7 @@
 		A67B3AD52684696500FF3AB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A67B3AD82684696500FF3AB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A67B3ADA2684696500FF3AB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A692670426A2077900ACCBD2 /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +78,8 @@
 		A67B3ACB2684696400FF3AB6 /* iPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				A692670326A1FA9E00ACCBD2 /* Detail ViewController */,
+				A692670026A1FA4900ACCBD2 /* MainViewController */,
 				A67B3ACC2684696400FF3AB6 /* AppDelegate.swift */,
 				A67B3ACE2684696400FF3AB6 /* SceneDelegate.swift */,
 				A67B3AD02684696400FF3AB6 /* ViewController.swift */,
@@ -85,19 +87,49 @@
 				A67B3AD72684696500FF3AB6 /* LaunchScreen.storyboard */,
 				A632E22126873C2900CAFF2E /* Login.storyboard */,
 				A67B3ADA2684696500FF3AB6 /* Info.plist */,
+			);
+			path = iPlanner;
+			sourceTree = "<group>";
+		};
+		A692670026A1FA4900ACCBD2 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A692670126A1FA6000ACCBD2 /* Table */,
 				A632E21F26873B8100CAFF2E /* MainViewController.swift */,
 				A67B3AD22684696400FF3AB6 /* Main.storyboard */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		A692670126A1FA6000ACCBD2 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				A692670226A1FA7E00ACCBD2 /* Collection */,
 				A632E22D2687976000CAFF2E /* TableHeaderView.swift */,
 				A632E2302687978300CAFF2E /* TableHeaderView.xib */,
 				A632E2292687685000CAFF2E /* MainTableViewCell.swift */,
 				A632E22A2687685000CAFF2E /* MainTableViewCell.xib */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
+		A692670226A1FA7E00ACCBD2 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
 				A632E22326873F9500CAFF2E /* MainCollectionViewCell.swift */,
 				A632E22426873F9500CAFF2E /* MainCollectionViewCell.xib */,
+				A692670426A2077900ACCBD2 /* GridLayout.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		A692670326A1FA9E00ACCBD2 /* Detail ViewController */ = {
+			isa = PBXGroup;
+			children = (
 				A632E2342687B18600CAFF2E /* DetailViewController.swift */,
 				A632E2352687B18600CAFF2E /* DetailViewController.xib */,
-				A65612922698B61E00A1B945 /* NotesCollectionViewLayout.swift */,
 			);
-			path = iPlanner;
+			path = "Detail ViewController";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,9 +211,9 @@
 				A67B3AD12684696400FF3AB6 /* ViewController.swift in Sources */,
 				A67B3ACD2684696400FF3AB6 /* AppDelegate.swift in Sources */,
 				A632E22526873F9500CAFF2E /* MainCollectionViewCell.swift in Sources */,
-				A65612932698B61E00A1B945 /* NotesCollectionViewLayout.swift in Sources */,
 				A67B3ACF2684696400FF3AB6 /* SceneDelegate.swift in Sources */,
 				A632E22B2687685000CAFF2E /* MainTableViewCell.swift in Sources */,
+				A692670526A2077900ACCBD2 /* GridLayout.swift in Sources */,
 				A632E22E2687976000CAFF2E /* TableHeaderView.swift in Sources */,
 				A632E22026873B8100CAFF2E /* MainViewController.swift in Sources */,
 			);
