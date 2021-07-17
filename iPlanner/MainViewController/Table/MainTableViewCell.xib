@@ -21,7 +21,7 @@
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nPL-UD-gkr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewLayout key="collectionViewLayout" id="m3p-Gz-qUS" customClass="GridLayout" customModule="iPlanner" customModuleProvider="target"/>
+                        <collectionViewLayout key="collectionViewLayout" id="e2P-GF-ZXj" customClass="GridLayout" customModule="iPlanner" customModuleProvider="target"/>
                     </collectionView>
                 </subviews>
                 <constraints>

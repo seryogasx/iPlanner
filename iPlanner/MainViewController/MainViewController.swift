@@ -34,12 +34,14 @@ class MainViewController: UIViewController {
     
     let sections: [String] = ["Избранное", "Контакты", "Действия"]
     var favorites: [String] = []
-    var contacts: [String] = ["aa", "b", "ccc", "dddd", "eeeee", "fffffffffffffffffffffffffffffff"]
+    var contacts: [String] = []
     var actions: [String] = ["Купить", "Подарить"]
     
     @IBOutlet weak var tableView: UITableView!
     
     private func getContacts() {
+        
+        var contactsArray = Array<Contact>()
         let store = CNContactStore()
         store.requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
@@ -51,7 +53,7 @@ class MainViewController: UIViewController {
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
                 do {
                     try store.enumerateContacts(with: request) { (contact, stopPointer) in
-                        self.contacts.append(Contact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName).fullName)
+                        contactsArray.append(Contact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName))
                     }
                 } catch let error {
                     print("failed to parse contacts!")
@@ -60,6 +62,10 @@ class MainViewController: UIViewController {
                 print("access denied!")
             }
         }
+        contactsArray.sort { (first, second) in
+            first.firstname != second.firstname ? first.firstname < second.firstname : first.secondName < second.secondName
+        }
+        contacts = contactsArray.map { $0.fullName }
     }
     
     override func viewDidLoad() {
