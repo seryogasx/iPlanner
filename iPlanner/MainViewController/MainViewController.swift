@@ -21,21 +21,22 @@ struct Contact {
     }
 }
 
+struct TableSection {
+    var item: String
+    var isVisible: Bool
+}
+
 class MainViewController: UIViewController {
 
     let cellIdentifier = "MainTableViewCell"
     let headerID = "TableHeaderView"
     let headerHeight = 30
     
-//    let sections = ["Избранное", "Контакты", "Действия"].sorted()
-//    let favorites = ["Jenka"/*, "Kaban", "Koreya"*/].sorted()
-//    let contacts = ["Jenka", "Ilyas", "Nekit", "Psina", "Lexaaaaa", "Kurlyk", "Kukarek"].sorted()
-//    let actions = ["Подарок", "Купить"/*, "Позвонить", "Заплатить"*/].sorted()
-    
-    let sections: [String] = ["Избранное", "Контакты", "Действия"]
+    var sections: [TableSection] = [TableSection(item: "Избранное", isVisible: true), TableSection(item: "Контакты", isVisible: true), TableSection(item: "Действия", isVisible: true)]
     var favorites: [String] = []
     var contacts: [String] = []
     var actions: [String] = ["Купить", "Подарить"]
+    let sectionHideAnimation = UITableView.RowAnimation.fade
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -45,7 +46,7 @@ class MainViewController: UIViewController {
         let store = CNContactStore()
         store.requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
-                print("failed to access contacts!")
+                print("failed to access contacts! Description: \(error.localizedDescription)")
                 return
             }
             if granted {
@@ -56,7 +57,7 @@ class MainViewController: UIViewController {
                         contactsArray.append(Contact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName))
                     }
                 } catch let error {
-                    print("failed to parse contacts!")
+                    print("failed to parse contacts! Description: \(error.localizedDescription)")
                 }
             } else {
                 print("access denied!")
@@ -104,7 +105,8 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if sections[section].isVisible { return 1}
+        else { return 0 }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,15 +119,7 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.section == 0 && favorites.count < 3 {
-//            return CGFloat(getHeightForTableCell(indexPath.section) * favorites.count / 3)
-//        } else if indexPath.section == 1 && contacts.count < 3 {
-//            return CGFloat(getHeightForTableCell(indexPath.section) * contacts.count / 3)
-//        } else if indexPath.section == 2 && actions.count < 3 {
-//            return CGFloat(getHeightForTableCell(indexPath.section) * actions.count / 3)
-//        }
         return CGFloat(getHeightForTableCell(indexPath.section))
-//        return UITableView.
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,10 +133,36 @@ extension MainViewController: UITableViewDelegate {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerID) as? TableHeaderView else {
             return UITableViewHeaderFooterView()
         }
-        header.setup(title: sections[section])
+        header.setup(title: sections[section].item)
+        if section == 0 { header.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(header0Clicked))) }
+        else if section == 1 { header.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(header1Clicked))) }
+        else { header.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(header2Clicked))) }
         return header
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    @objc func header0Clicked() {
+        if let tableView = tableView {
+            sections[0].isVisible = !sections[0].isVisible
+            tableView.reloadSections(IndexSet(integer: 0), with: sectionHideAnimation
+            )
+        }
+    }
+    
+    @objc func header1Clicked() {
+        if let tableView = tableView {
+            sections[1].isVisible = !sections[1].isVisible
+            tableView.reloadSections(IndexSet(integer: 1), with: sectionHideAnimation)
+        }
+    }
+    
+    @objc func header2Clicked() {
+        if let tableView = tableView {
+            sections[2].isVisible = !sections[2].isVisible
+            tableView.reloadSections(IndexSet(integer: 2), with: sectionHideAnimation)
+        }
     }
 }
