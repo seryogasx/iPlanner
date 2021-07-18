@@ -57,10 +57,21 @@ extension MainTableViewCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.setup(title: content[indexPath.item])
-        cell.buttonClickedAction = { [weak self] () in
-            self?.parentViewController.present(DetailViewController(), animated: true, completion: nil)
-        }
+        cell.button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(buttonClicked)))
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(content[indexPath.item])
+        let DetailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
+        self.parentViewController.present(DetailVC, animated: true, completion: nil)
+        print("wow!")
+    }
+    
+    @objc func buttonClicked() {
+//        let storyboard = UIStoryboard(name: "main", bundle: nil).
+        self.parentViewController.present(DetailViewController(nibName: "DetailViewController", bundle: nil), animated: true, completion: nil)
+//        self.parentViewController.present
     }
 }
 

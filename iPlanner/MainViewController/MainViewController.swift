@@ -21,10 +21,10 @@ struct Contact {
     }
 }
 
-struct TableSection {
-    var item: String
-    var isVisible: Bool
-}
+//struct TableSection {
+//    var item: String
+//    var isVisible: Bool
+//}
 
 class MainViewController: UIViewController {
 
@@ -32,7 +32,7 @@ class MainViewController: UIViewController {
     let headerID = "TableHeaderView"
     let headerHeight = 30
     
-    var sections: [TableSection] = [TableSection(item: "Избранное", isVisible: true), TableSection(item: "Контакты", isVisible: true), TableSection(item: "Действия", isVisible: true)]
+    var sections: [String] = ["Избранное", "Контакты", "Действия"]
     var favorites: [String] = []
     var contacts: [String] = []
     var actions: [String] = ["Купить", "Подарить"]
@@ -105,8 +105,8 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if sections[section].isVisible { return 1}
-        else { return 0 }
+        if (section == 0 && favorites.isEmpty) || (section == 1 && contacts.isEmpty) || (section == 2 && actions.isEmpty) { return 0 }
+        else { return 1 }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -119,7 +119,12 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(getHeightForTableCell(indexPath.section))
+        let height = CGFloat(getHeightForTableCell(indexPath.section))
+        guard let cell = tableView.cellForRow(at: indexPath) else { return height }
+        if cell.isHidden {
+            return 0
+        }
+        return height
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -133,36 +138,15 @@ extension MainViewController: UITableViewDelegate {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerID) as? TableHeaderView else {
             return UITableViewHeaderFooterView()
         }
-        header.setup(title: sections[section].item)
-        if section == 0 { header.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(header0Clicked))) }
-        else if section == 1 { header.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(header1Clicked))) }
-        else { header.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(header2Clicked))) }
+        header.setup(title: sections[section])
         return header
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
-    @objc func header0Clicked() {
-        if let tableView = tableView {
-            sections[0].isVisible = !sections[0].isVisible
-            tableView.reloadSections(IndexSet(integer: 0), with: sectionHideAnimation
-            )
-        }
-    }
-    
-    @objc func header1Clicked() {
-        if let tableView = tableView {
-            sections[1].isVisible = !sections[1].isVisible
-            tableView.reloadSections(IndexSet(integer: 1), with: sectionHideAnimation)
-        }
-    }
-    
-    @objc func header2Clicked() {
-        if let tableView = tableView {
-            sections[2].isVisible = !sections[2].isVisible
-            tableView.reloadSections(IndexSet(integer: 2), with: sectionHideAnimation)
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
+//        UIView.animate(withDuration: 0.25) {
+//            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+//        }
+//    }
 }
+

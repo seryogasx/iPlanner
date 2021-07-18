@@ -20,9 +20,6 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffs-OS-ElC">
                         <rect key="frame" x="0.0" y="0.0" width="278" height="139"/>
                         <state key="normal" title="Button"/>
-                        <connections>
-                            <action selector="ButtonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="xuM-T6-Ou7"/>
-                        </connections>
                     </button>
                 </subviews>
             </view>

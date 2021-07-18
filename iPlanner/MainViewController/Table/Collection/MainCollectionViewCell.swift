@@ -9,8 +9,6 @@ import UIKit
 
 class MainCollectionViewCell: UICollectionViewCell {
     
-    var buttonClickedAction: (() -> ())?
-    
     @IBOutlet weak var button: UIButton!
     
     override func awakeFromNib() {
@@ -21,11 +19,6 @@ class MainCollectionViewCell: UICollectionViewCell {
     func setup(title: String) {
         button.setTitle(title, for: .normal)
         button.setButtonForm()
-    }
-    
-    @IBAction func ButtonClicked(_ sender: UIButton) {
-        print("Button has been pressed!")
-        buttonClickedAction?()
     }
 }
 
