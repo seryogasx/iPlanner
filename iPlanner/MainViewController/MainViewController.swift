@@ -83,7 +83,7 @@ class MainViewController: UIViewController {
         
         let nib = UINib(nibName: headerID, bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: headerID)
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 1))
     }
     
     func getHeightForTableCell(_ section: Int) -> Int {
@@ -113,7 +113,17 @@ extension MainViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? MainTableViewCell else {
             return UITableViewCell()
         }
-        cell.setup(content: indexPath.section == 0 ? favorites : indexPath.section == 1  ? contacts : actions)
+        switch indexPath.section {
+            case 0:
+                cell.setup(content: favorites, contentType: .contact)
+            case 1:
+                cell.setup(content: contacts, contentType: .contact)
+            case 2:
+                cell.setup(content: actions, contentType: .action)
+            default:
+                print("Something goes wrong with content type!")
+                cell.setup(content: contacts, contentType: .contact)
+        }
         cell.parentViewController = self
         return cell
     }
@@ -141,12 +151,5 @@ extension MainViewController: UITableViewDelegate {
         header.setup(title: sections[section])
         return header
     }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
-//        UIView.animate(withDuration: 0.25) {
-//            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
-//        }
-//    }
 }
 

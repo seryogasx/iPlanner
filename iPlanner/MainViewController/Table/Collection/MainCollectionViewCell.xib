@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="278" height="139"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffs-OS-ElC">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxL-0A-lGI">
                         <rect key="frame" x="0.0" y="0.0" width="278" height="139"/>
                         <state key="normal" title="Button"/>
                     </button>
@@ -25,14 +25,14 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="ffs-OS-ElC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3rL-p2-pAp"/>
-                <constraint firstAttribute="bottom" secondItem="ffs-OS-ElC" secondAttribute="bottom" id="Vhb-3m-DtY"/>
-                <constraint firstItem="ffs-OS-ElC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Xia-Jl-Lga"/>
-                <constraint firstAttribute="trailing" secondItem="ffs-OS-ElC" secondAttribute="trailing" id="vhl-U7-uLy"/>
+                <constraint firstItem="oxL-0A-lGI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0Rk-a8-uie"/>
+                <constraint firstAttribute="trailing" secondItem="oxL-0A-lGI" secondAttribute="trailing" id="gVT-by-697"/>
+                <constraint firstItem="oxL-0A-lGI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hu0-W6-t2J"/>
+                <constraint firstAttribute="bottom" secondItem="oxL-0A-lGI" secondAttribute="bottom" id="qeD-ka-XIK"/>
             </constraints>
             <size key="customSize" width="278" height="139"/>
             <connections>
-                <outlet property="button" destination="ffs-OS-ElC" id="6Ea-Gr-my6"/>
+                <outlet property="button" destination="oxL-0A-lGI" id="zy1-g6-aOl"/>
             </connections>
             <point key="canvasLocation" x="126.08695652173914" y="8.3705357142857135"/>
         </collectionViewCell>

@@ -7,12 +7,18 @@
 
 import UIKit
 
+enum ContentType {
+    case contact
+    case action
+}
+
 let maxTableViewCellHeight = UIScreen.main.bounds.height / 3
 
 class MainTableViewCell: UITableViewCell {
     
     let cellIdentifier = "MainCollectionViewCell"
     var content: Array<String> = []
+    var contentType: ContentType?
     var size = CGSize()
     
     var colors = [UIColor.red, UIColor.blue, UIColor.brown, UIColor.green]
@@ -39,8 +45,9 @@ class MainTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setup(content: Array<String>) {
+    func setup(content: Array<String>, contentType: ContentType) {
         self.content = content
+        self.contentType = contentType
     }
     
 }
@@ -57,21 +64,14 @@ extension MainTableViewCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.setup(title: content[indexPath.item])
-        cell.button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(buttonClicked)))
+        cell.button.isUserInteractionEnabled = false
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(content[indexPath.item])
-        let DetailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
-        self.parentViewController.present(DetailVC, animated: true, completion: nil)
-        print("wow!")
-    }
-    
-    @objc func buttonClicked() {
-//        let storyboard = UIStoryboard(name: "main", bundle: nil).
-        self.parentViewController.present(DetailViewController(nibName: "DetailViewController", bundle: nil), animated: true, completion: nil)
-//        self.parentViewController.present
+        let detailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
+        detailVC.setup(content: content[indexPath.item], contentType: contentType!)
+        self.parentViewController.present(detailVC, animated: true, completion: nil)
     }
 }
 

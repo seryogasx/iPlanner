@@ -9,11 +9,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var contact: String?
-    var action: String?
+    var content: String?
+    var contentType: ContentType?
     let cellIdentifier = "DetailVCCell"
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,11 @@ class DetailViewController: UIViewController {
         tableView.register(UINib(nibName: "DetailCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
     }
 
-
+    func setup(content: String?, contentType: ContentType) {
+        self.content = content
+        self.contentType = contentType
+        print(content, " -> ", contentType)
+    }
     /*
     // MARK: - Navigation
 
