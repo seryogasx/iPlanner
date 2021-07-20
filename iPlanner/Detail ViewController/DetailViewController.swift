@@ -9,24 +9,41 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var content: String?
+    var mainHeader: String!
+    var content: [String] = []
     var contentType: ContentType?
     let cellIdentifier = "DetailVCCell"
+    let headerCellIdentifier = "HeaderVCCell"
+    var headers: Array<String> = []
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "DetailCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        tableView.register(UINib(nibName: "HeaderCell", bundle: nil), forCellReuseIdentifier: headerCellIdentifier)
     }
 
     func setup(content: String?, contentType: ContentType) {
-        self.content = content
+        self.mainHeader = content
         self.contentType = contentType
-        print(content, " -> ", contentType)
+        if contentType == .contact {
+            getContactData(contact: mainHeader)
+        } else {
+            getActionData(action: mainHeader)
+        }
+    }
+    
+    func getContactData(contact: String) {
+        for i in 0..<10 {
+            content.append("hello" + String(i))
+        }
+    }
+    
+    func getActionData(action: String) {
+        
     }
     /*
     // MARK: - Navigation
@@ -47,19 +64,28 @@ extension DetailViewController: UITableViewDelegate {
 extension DetailViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return headers.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return content.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailCell else {
-            return UITableViewCell()
+        switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: headerCellIdentifier, for: indexPath) as? HeaderCell else {
+                    return UITableViewCell()
+                }
+                cell.setup(title: mainHeader, contentImage: UIImage(named: "Applelogo")!)
+                return cell
+            default:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailCell else {
+                    return UITableViewCell()
+                }
+                cell.label.text = content[indexPath.item]
+                return cell
         }
-        cell.label.text = "hello"
-        return cell
     }
     
 }
