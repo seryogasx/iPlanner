@@ -28,6 +28,8 @@
 		A692670526A2077900ACCBD2 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A692670426A2077900ACCBD2 /* GridLayout.swift */; };
 		A6BFD16326A6C64900244E31 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFD16126A6C64900244E31 /* HeaderCell.swift */; };
 		A6BFD16426A6C64900244E31 /* HeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6BFD16226A6C64900244E31 /* HeaderCell.xib */; };
+		A6BFD16726A6DBE100244E31 /* AddContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BFD16526A6DBE100244E31 /* AddContentTableViewCell.swift */; };
+		A6BFD16826A6DBE100244E31 /* AddContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6BFD16626A6DBE100244E31 /* AddContentTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		A692670426A2077900ACCBD2 /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		A6BFD16126A6C64900244E31 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		A6BFD16226A6C64900244E31 /* HeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCell.xib; sourceTree = "<group>"; };
+		A6BFD16526A6DBE100244E31 /* AddContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentTableViewCell.swift; sourceTree = "<group>"; };
+		A6BFD16626A6DBE100244E31 /* AddContentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddContentTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,8 @@
 				A66363C026A484CA00797926 /* DetailViewController.xib */,
 				A6BFD16126A6C64900244E31 /* HeaderCell.swift */,
 				A6BFD16226A6C64900244E31 /* HeaderCell.xib */,
+				A6BFD16526A6DBE100244E31 /* AddContentTableViewCell.swift */,
+				A6BFD16626A6DBE100244E31 /* AddContentTableViewCell.xib */,
 			);
 			path = "Detail ViewController";
 			sourceTree = "<group>";
@@ -203,6 +209,7 @@
 			files = (
 				A6BFD16426A6C64900244E31 /* HeaderCell.xib in Resources */,
 				A632E2312687978300CAFF2E /* TableHeaderView.xib in Resources */,
+				A6BFD16826A6DBE100244E31 /* AddContentTableViewCell.xib in Resources */,
 				A632E22C2687685000CAFF2E /* MainTableViewCell.xib in Resources */,
 				A632E22226873C2900CAFF2E /* Login.storyboard in Resources */,
 				A67B3AD92684696500FF3AB6 /* LaunchScreen.storyboard in Resources */,
@@ -224,6 +231,7 @@
 				A66363BB26A46D6300797926 /* DetailCell.swift in Sources */,
 				A67B3AD12684696400FF3AB6 /* ViewController.swift in Sources */,
 				A67B3ACD2684696400FF3AB6 /* AppDelegate.swift in Sources */,
+				A6BFD16726A6DBE100244E31 /* AddContentTableViewCell.swift in Sources */,
 				A632E22526873F9500CAFF2E /* MainCollectionViewCell.swift in Sources */,
 				A67B3ACF2684696400FF3AB6 /* SceneDelegate.swift in Sources */,
 				A632E22B2687685000CAFF2E /* MainTableViewCell.swift in Sources */,

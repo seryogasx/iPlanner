@@ -23,9 +23,10 @@ class DetailCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setup() {
-        label.text = "hello"
-        button.titleLabel?.text = "some text"
+    func setup(content: String) {
+//        label.text = "hello"
+        label.text = content
+        button.setTitle("some text", for: .normal)
     }
     
 }

@@ -14,6 +14,7 @@ class DetailViewController: UIViewController {
     var contentType: ContentType?
     let cellIdentifier = "DetailVCCell"
     let headerCellIdentifier = "HeaderVCCell"
+    let addContentCellIdentifier = "AddContentTableViewCellIdentifier"
     var headers: Array<String> = []
     
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +25,7 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "DetailCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.register(UINib(nibName: "HeaderCell", bundle: nil), forCellReuseIdentifier: headerCellIdentifier)
+        tableView.register(UINib(nibName: "AddContentTableViewCell", bundle: nil), forCellReuseIdentifier: addContentCellIdentifier)
     }
 
     func setup(content: String?, contentType: ContentType) {
@@ -43,7 +45,9 @@ class DetailViewController: UIViewController {
     }
     
     func getActionData(action: String) {
-        
+        for i in 0..<5 {
+            content.append("action" + String(i))
+        }
     }
     /*
     // MARK: - Navigation
@@ -68,7 +72,7 @@ extension DetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return content.count
+        return content.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,11 +83,17 @@ extension DetailViewController: UITableViewDataSource {
                 }
                 cell.setup(title: mainHeader, contentImage: UIImage(named: "Applelogo")!)
                 return cell
+            case content.count:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: addContentCellIdentifier, for: indexPath) as? AddContentTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.setup()
+                return cell
             default:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailCell else {
                     return UITableViewCell()
                 }
-                cell.label.text = content[indexPath.item]
+                cell.setup(content: content[indexPath.item - 1])
                 return cell
         }
     }
