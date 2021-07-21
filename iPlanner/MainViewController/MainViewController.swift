@@ -8,11 +8,11 @@
 import UIKit
 import Contacts
 
-struct Contact {
+struct UserContact {
     var firstname: String
     var secondName: String
     var company: String
-    
+
     var count: Int {
         return firstname.count + secondName.count + company.count
     }
@@ -20,11 +20,6 @@ struct Contact {
         return firstname + " " + secondName
     }
 }
-
-//struct TableSection {
-//    var item: String
-//    var isVisible: Bool
-//}
 
 class MainViewController: UIViewController {
 
@@ -35,14 +30,14 @@ class MainViewController: UIViewController {
     var sections: [String] = ["Избранное", "Контакты", "Действия"]
     var favorites: [String] = []
     var contacts: [String] = []
-    var actions: [String] = ["Купить", "Подарить"]
+    var actions: [String] = ["Купить", "Подарить", "Сделать"]
     let sectionHideAnimation = UITableView.RowAnimation.fade
     
     @IBOutlet weak var tableView: UITableView!
     
     private func getContacts() {
         
-        var contactsArray = Array<Contact>()
+        var contactsArray = Array<UserContact>()
         let store = CNContactStore()
         store.requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
@@ -54,7 +49,7 @@ class MainViewController: UIViewController {
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
                 do {
                     try store.enumerateContacts(with: request) { (contact, stopPointer) in
-                        contactsArray.append(Contact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName))
+                        contactsArray.append(UserContact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName))
                     }
                 } catch let error {
                     print("failed to parse contacts! Description: \(error.localizedDescription)")
@@ -87,7 +82,7 @@ class MainViewController: UIViewController {
     }
     
     func getHeightForTableCell(_ section: Int) -> Int {
-        return (Int(UIScreen.main.bounds.height) / 3) - 3 * headerHeight
+        return (Int(UIScreen.main.bounds.height) / sections.count) - sections.count * headerHeight
     }
     
 
