@@ -8,19 +8,6 @@
 import UIKit
 import Contacts
 
-struct UserContact {
-    var firstname: String
-    var secondName: String
-    var company: String
-
-    var count: Int {
-        return firstname.count + secondName.count + company.count
-    }
-    var fullName: String {
-        return firstname + " " + secondName
-    }
-}
-
 class MainViewController: UIViewController {
 
     let cellIdentifier = "MainTableViewCell"
@@ -37,7 +24,7 @@ class MainViewController: UIViewController {
     
     private func getContacts() {
         
-        var contactsArray = Array<UserContact>()
+        var contactsArray = Array<TestUserContact>()
         let store = CNContactStore()
         store.requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
@@ -45,11 +32,12 @@ class MainViewController: UIViewController {
                 return
             }
             if granted {
-                let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactOrganizationNameKey]
+                let keys = [CNContactIdentifierKey, CNContactGivenNameKey, CNContactFamilyNameKey, CNContactOrganizationNameKey]
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
                 do {
                     try store.enumerateContacts(with: request) { (contact, stopPointer) in
-                        contactsArray.append(UserContact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName))
+                        contactsArray.append(TestUserContact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName))
+                        print(contact.identifier)
                     }
                 } catch let error {
                     print("failed to parse contacts! Description: \(error.localizedDescription)")

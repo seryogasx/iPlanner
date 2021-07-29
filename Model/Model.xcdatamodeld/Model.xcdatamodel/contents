@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="UserAction" representedClassName="UserAction" syncable="YES">
+        <attribute name="actionDescription" optional="YES" attributeType="String"/>
+        <attribute name="createDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="finishDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" attributeType="String"/>
+        <relationship name="actionType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserActionType" inverseName="actions" inverseEntity="UserActionType"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserContact" inverseName="actions" inverseEntity="UserContact"/>
+    </entity>
+    <entity name="UserActionType" representedClassName="UserActionType" syncable="YES">
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="typeName" attributeType="String"/>
+        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserAction" inverseName="actionType" inverseEntity="UserAction"/>
+    </entity>
+    <entity name="UserContact" representedClassName="UserContact" syncable="YES">
+        <attribute name="identifier" attributeType="String"/>
+        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserAction" inverseName="owner" inverseEntity="UserAction"/>
+    </entity>
+    <elements>
+        <element name="UserContact" positionX="-514.875" positionY="236.55859375" width="128" height="73"/>
+        <element name="UserActionType" positionX="-158.91796875" positionY="200.5625" width="128" height="88"/>
+        <element name="UserAction" positionX="-255.70703125" positionY="61.59375" width="128" height="119"/>
+    </elements>
+</model>
