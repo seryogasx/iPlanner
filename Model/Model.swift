@@ -27,11 +27,15 @@ protocol UserContent {
 
 struct UserContact: UserContent {
     var identifier: String
-    var contact: CNContact?
+    var givenName: String?
+    var middleName: String?
+    var familyName: String?
+    var jobTitle: String?
+    var nickName: String?
     var actions: [UserAction]?
     
     var fullName: String {
-        return (contact?.givenName ?? "") + (contact?.middleName ?? " ") + (contact?.familyName ?? "")
+        return "\(givenName ?? "") \(middleName ?? "") \(familyName ?? "")"
     }
 }
 
@@ -47,3 +51,16 @@ struct UserAction: UserContent {
     var actionType: UserActionType
     var owner: UserContact
 }
+
+//struct UserContactDetail: UserContent {
+//    var identifier: String
+//    var givenName: String?
+//    var middleName: String?
+//    var familyName: String?
+//    var jobTitle: String?
+//    var nickName: String?
+//
+//    var fullName: String {
+//        return (givenName ?? "") + (middleName ?? " ") + (familyName ?? "")
+//    }
+//}

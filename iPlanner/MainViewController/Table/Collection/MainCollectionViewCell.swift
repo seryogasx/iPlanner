@@ -18,7 +18,6 @@ class MainCollectionViewCell: UICollectionViewCell {
 
     func setup(title: String) {
         button.setTitle(title, for: .normal)
-//        label.textColor = .blue
         button.setLayer()
     }
 }

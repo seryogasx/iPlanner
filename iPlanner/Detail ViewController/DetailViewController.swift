@@ -9,8 +9,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var mainHeader: String!
-    var content: [String] = []
+    var mainHeader: UserContent!
+    var content: [UserContent] = []
     var contentType: ContentType?
     let cellIdentifier = "DetailVCCell"
     let headerCellIdentifier = "HeaderVCCell"
@@ -28,26 +28,26 @@ class DetailViewController: UIViewController {
         tableView.register(UINib(nibName: "AddContentTableViewCell", bundle: nil), forCellReuseIdentifier: addContentCellIdentifier)
     }
 
-    func setup(content: String?, contentType: ContentType) {
+    func setup(content: UserContent?, contentType: ContentType) {
         self.mainHeader = content
         self.contentType = contentType
         if contentType == .contact {
-            getContactData(contact: mainHeader)
+            getContactData(contact: mainHeader as! UserContact)
         } else {
-            getActionData(action: mainHeader)
+            getActionData(action: mainHeader as! UserActionType)
         }
     }
     
-    func getContactData(contact: String) {
-        for i in 0..<10 {
-            content.append("hello" + String(i))
-        }
+    func getContactData(contact: UserContact) {
+//        for i in 0..<10 {
+//            content.append("hello" + String(i))
+//        }
     }
     
-    func getActionData(action: String) {
-        for i in 0..<5 {
-            content.append("action" + String(i))
-        }
+    func getActionData(action: UserActionType) {
+//        for i in 0..<5 {
+//            content.append("action" + String(i))
+//        }
     }
     /*
     // MARK: - Navigation
@@ -81,7 +81,7 @@ extension DetailViewController: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: headerCellIdentifier, for: indexPath) as? HeaderCell else {
                     return UITableViewCell()
                 }
-                cell.setup(title: mainHeader, contentImage: UIImage(named: "Applelogo")!)
+                cell.setup(content: mainHeader, contentType: contentType!, contentImage: UIImage(named: "Applelogo")!)
                 return cell
             case content.count:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addContentCellIdentifier, for: indexPath) as? AddContentTableViewCell else {
@@ -93,7 +93,12 @@ extension DetailViewController: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailCell else {
                     return UITableViewCell()
                 }
-                cell.setup(content: content[indexPath.item - 1])
+                if contentType == .contact {
+                    cell.setup(content: content[indexPath.item - 1] as! UserContact, contentType: contentType!)
+                }
+                else {
+                    cell.setup(content: content[indexPath.item - 1] as! UserAction, contentType: contentType!)
+                }
                 return cell
         }
     }

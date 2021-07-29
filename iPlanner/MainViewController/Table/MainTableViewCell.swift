@@ -17,7 +17,7 @@ let maxTableViewCellHeight = UIScreen.main.bounds.height / 3
 class MainTableViewCell: UITableViewCell {
     
     let cellIdentifier = "MainCollectionViewCell"
-    var content: Array<String> = []
+    var content: Array<UserContent> = []
     var contentType: ContentType?
     var size = CGSize()
     
@@ -45,7 +45,7 @@ class MainTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setup(content: Array<String>, contentType: ContentType) {
+    func setup(content: Array<UserContent>, contentType: ContentType) {
         self.content = content
         self.contentType = contentType
     }
@@ -63,14 +63,23 @@ extension MainTableViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? MainCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setup(title: content[indexPath.item])
+        if contentType == .contact {
+            cell.setup(title: (content[indexPath.item] as! UserContact).fullName)
+        } else {
+            cell.setup(title: (content[indexPath.item] as! UserActionType).typeName)
+        }
+        
         cell.button.isUserInteractionEnabled = false
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
-        detailVC.setup(content: content[indexPath.item], contentType: contentType!)
+        if contentType == .contact {
+            detailVC.setup(content: content[indexPath.item] as! UserContact, contentType: contentType!)
+        } else {
+            detailVC.setup(content: content[indexPath.item] as! UserActionType, contentType: contentType!)
+        }
         self.parentViewController.present(detailVC, animated: true, completion: nil)
     }
 }
@@ -81,7 +90,7 @@ extension MainTableViewCell: UICollectionViewDelegate {
 
 extension MainTableViewCell: GridLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, widthForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let text = content[indexPath.item]
+        let text = (contentType == .contact) ? (content[indexPath.item] as! UserContact).fullName : (content[indexPath.item] as! UserActionType).typeName
         let referenceSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 22)
         let calculatedSize = (text as NSString).boundingRect(with: referenceSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22.0)], context: nil)
         return max(calculatedSize.width, 50)

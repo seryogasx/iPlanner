@@ -15,16 +15,17 @@ class MainViewController: UIViewController {
     let headerHeight = 30
     
     var sections: [String] = ["Избранное", "Контакты", "Действия"]
-    var favorites: [String] = []
-    var contacts: [String] = []
-    var actions: [String] = ["Купить", "Подарить", "Сделать"]
+    var favorites: [UserContact] = []
+    var contacts: [UserContact] = []
+    var actions: [UserActionType] = [UserActionType(identifier: "Купить", typeName: "Купить", actions: nil),
+                                     UserActionType(identifier: "Подарить", typeName: "Подарить", actions: nil),
+                                     UserActionType(identifier: "Сделать", typeName: "Сделать", actions: nil)]
     let sectionHideAnimation = UITableView.RowAnimation.fade
     
     @IBOutlet weak var tableView: UITableView!
     
     private func getContacts() {
         
-        var contactsArray = Array<TestUserContact>()
         let store = CNContactStore()
         store.requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
@@ -32,12 +33,11 @@ class MainViewController: UIViewController {
                 return
             }
             if granted {
-                let keys = [CNContactIdentifierKey, CNContactGivenNameKey, CNContactFamilyNameKey, CNContactOrganizationNameKey]
+                let keys = [CNContactIdentifierKey, CNContactGivenNameKey, CNContactFamilyNameKey, CNContactMiddleNameKey, CNContactJobTitleKey, CNContactNicknameKey]
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
                 do {
-                    try store.enumerateContacts(with: request) { (contact, stopPointer) in
-                        contactsArray.append(TestUserContact(firstname: contact.givenName, secondName: contact.familyName, company: contact.organizationName))
-                        print(contact.identifier)
+                    try store.enumerateContacts(with: request) { [weak self] (contact, stopPointer) in
+                        self?.contacts.append(UserContact(identifier: contact.identifier, givenName: contact.givenName, middleName: contact.middleName, familyName: contact.familyName, jobTitle: contact.jobTitle, nickName: contact.nickname, actions: nil))
                     }
                 } catch let error {
                     print("failed to parse contacts! Description: \(error.localizedDescription)")
@@ -46,10 +46,6 @@ class MainViewController: UIViewController {
                 print("access denied!")
             }
         }
-        contactsArray.sort { (first, second) in
-            first.firstname != second.firstname ? first.firstname < second.firstname : first.secondName < second.secondName
-        }
-        contacts = contactsArray.map { $0.fullName }
     }
     
     override func viewDidLoad() {
