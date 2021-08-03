@@ -39,15 +39,11 @@ class DetailViewController: UIViewController {
     }
     
     func getContactData(contact: UserContact) {
-//        for i in 0..<10 {
-//            content.append("hello" + String(i))
-//        }
+        
     }
     
     func getActionData(action: UserActionType) {
-//        for i in 0..<5 {
-//            content.append("action" + String(i))
-//        }
+        
     }
     /*
     // MARK: - Navigation

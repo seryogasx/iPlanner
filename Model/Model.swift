@@ -35,7 +35,9 @@ struct UserContact: UserContent {
     var actions: [UserAction]?
     
     var fullName: String {
-        return "\(givenName ?? "") \(middleName ?? "") \(familyName ?? "")"
+        return "\(givenName ?? "") \(middleName ?? " ") \(familyName ?? "")"
+//        print("given: \(givenName ?? "!"), middle: \(middleName ?? "!"), family: \(familyName ?? "!")")
+//        return (givenName ?? " ") + (middleName ?? " ") + (familyName ?? " ")
     }
 }
 
@@ -47,7 +49,9 @@ struct UserActionType: UserContent {
 
 struct UserAction: UserContent {
     var identifier: String
-    var description: String?
+    var actionDescription: String?
+    var createDate: Date
+    var finishDate: Date?
     var actionType: UserActionType
     var owner: UserContact
 }

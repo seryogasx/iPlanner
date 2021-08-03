@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A6057A2426B2B1480074B654 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A6057A2226B2B1480074B654 /* Model.xcdatamodeld */; };
 		A6057A2726B2B3330074B654 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6057A2626B2B3330074B654 /* Model.swift */; };
+		A60CBCEA26B73B8E00B00447 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CBCE926B73B8E00B00447 /* DatabaseManager.swift */; };
 		A632E22026873B8100CAFF2E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A632E21F26873B8100CAFF2E /* MainViewController.swift */; };
 		A632E22226873C2900CAFF2E /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A632E22126873C2900CAFF2E /* Login.storyboard */; };
 		A632E22526873F9500CAFF2E /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A632E22326873F9500CAFF2E /* MainCollectionViewCell.swift */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		A6057A2326B2B1480074B654 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		A6057A2626B2B3330074B654 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		A60CBCE926B73B8E00B00447 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A632E21F26873B8100CAFF2E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A632E22126873C2900CAFF2E /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		A632E22326873F9500CAFF2E /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			children = (
 				A6057A2226B2B1480074B654 /* Model.xcdatamodeld */,
 				A6057A2626B2B3330074B654 /* Model.swift */,
+				A60CBCE926B73B8E00B00447 /* DatabaseManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			files = (
 				A66363BB26A46D6300797926 /* DetailCell.swift in Sources */,
 				A67B3AD12684696400FF3AB6 /* ViewController.swift in Sources */,
+				A60CBCEA26B73B8E00B00447 /* DatabaseManager.swift in Sources */,
 				A67B3ACD2684696400FF3AB6 /* AppDelegate.swift in Sources */,
 				A6BFD16726A6DBE100244E31 /* AddContentTableViewCell.swift in Sources */,
 				A632E22526873F9500CAFF2E /* MainCollectionViewCell.swift in Sources */,
