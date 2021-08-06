@@ -9,8 +9,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var mainHeader: UserContent!
-    var content: [UserContent] = []
+    var mainHeader: Content!
+    var content: [Content] = []
     var contentType: ContentType?
     let cellIdentifier = "DetailVCCell"
     let headerCellIdentifier = "HeaderVCCell"
@@ -28,21 +28,21 @@ class DetailViewController: UIViewController {
         tableView.register(UINib(nibName: "AddContentTableViewCell", bundle: nil), forCellReuseIdentifier: addContentCellIdentifier)
     }
 
-    func setup(content: UserContent?, contentType: ContentType) {
+    func setup(content: Content?, contentType: ContentType) {
         self.mainHeader = content
         self.contentType = contentType
         if contentType == .contact {
-            getContactData(contact: mainHeader as! UserContact)
+            getContactData(contact: mainHeader as! Contact)
         } else {
-            getActionData(action: mainHeader as! UserActionType)
+            getActionData(action: mainHeader as! ActionType)
         }
     }
     
-    func getContactData(contact: UserContact) {
+    func getContactData(contact: Contact) {
         
     }
     
-    func getActionData(action: UserActionType) {
+    func getActionData(action: ActionType) {
         
     }
     /*
@@ -90,10 +90,10 @@ extension DetailViewController: UITableViewDataSource {
                     return UITableViewCell()
                 }
                 if contentType == .contact {
-                    cell.setup(content: content[indexPath.item - 1] as! UserContact, contentType: contentType!)
+                    cell.setup(content: content[indexPath.item - 1] as! Contact, contentType: contentType!)
                 }
                 else {
-                    cell.setup(content: content[indexPath.item - 1] as! UserAction, contentType: contentType!)
+                    cell.setup(content: content[indexPath.item - 1] as! Action, contentType: contentType!)
                 }
                 return cell
         }

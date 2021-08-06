@@ -15,45 +15,22 @@ class MainViewController: UIViewController {
     let headerHeight = 30
     
     var sections: [String] = ["Избранное", "Контакты", "Действия"]
-    var favorites: [UserContact] = []
-    var contacts: [UserContact] = []
-    var actions: [UserActionType] = [UserActionType(identifier: "Купить", typeName: "Купить", actions: nil),
-                                     UserActionType(identifier: "Подарить", typeName: "Подарить", actions: nil),
-                                     UserActionType(identifier: "Сделать", typeName: "Сделать", actions: nil)]
+    var favorites: [Contact] = []
+    var contacts: [Contact] = []
+    var actions: [ActionType] = [ActionType(typeName: "Купить", identifier: "Купить", actions: nil),
+                                     ActionType(typeName: "Подарить", identifier: "Подарить", actions: nil),
+                                     ActionType(typeName: "Сделать", identifier: "Сделать", actions: nil)]
+    let defaultActions = ["Купить", "Подарить", "Сделать"]
     let sectionHideAnimation = UITableView.RowAnimation.fade
     
     @IBOutlet weak var tableView: UITableView!
-    
-    private func getContacts() {
-        
-        let store = CNContactStore()
-        store.requestAccess(for: .contacts) { (granted, error) in
-            if let error = error {
-                print("failed to access contacts! Description: \(error.localizedDescription)")
-                return
-            }
-            if granted {
-                let keys = [CNContactIdentifierKey, CNContactGivenNameKey, CNContactFamilyNameKey, CNContactMiddleNameKey, CNContactJobTitleKey, CNContactNicknameKey]
-                let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-                do {
-                    try store.enumerateContacts(with: request) { [weak self] (contact, stopPointer) in
-                        self?.contacts.append(UserContact(identifier: contact.identifier, givenName: contact.givenName, middleName: contact.middleName, familyName: contact.familyName, jobTitle: contact.jobTitle, nickName: contact.nickname, actions: nil))
-                    }
-                } catch let error {
-                    print("failed to parse contacts! Description: \(error.localizedDescription)")
-                }
-            } else {
-                print("access denied!")
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.alwaysBounceVertical = false
-        getContacts()
+        contacts = ContactManager.shared.getContacts()
         setupTable()
     }
     

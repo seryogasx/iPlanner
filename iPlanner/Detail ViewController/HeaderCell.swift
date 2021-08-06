@@ -18,11 +18,11 @@ class HeaderCell: UITableViewCell {
         // Initialization code
     }
     
-    func setup(content: UserContent, contentType: ContentType, contentImage: UIImage) {
+    func setup(content: Content, contentType: ContentType, contentImage: UIImage) {
         if contentType == .contact {
-            self.label.text = (content as! UserContact).fullName
+            self.label.text = ContactManager.shared.getContactInfo(contact: content as! Contact).fullName
         } else {
-            self.label.text = (content as! UserActionType).typeName
+            self.label.text = (content as! ActionType).typeName
         }
         imageHeight.constant = UIScreen.main.bounds.height / 8
         self.contentMode = .scaleAspectFit

@@ -26,10 +26,10 @@ class DetailCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setup(content: UserContent, contentType: ContentType) {
+    func setup(content: Content, contentType: ContentType) {
         self.contentType = contentType
         if self.contentType == .contact {
-            label.text = (content as! UserContact).fullName
+            label.text = ContactManager.shared.getContactInfo(contact: content as! Contact).fullName
         }
         else {
             label.text = (content as! UserAction).actionType.typeName

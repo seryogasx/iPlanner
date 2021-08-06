@@ -17,7 +17,7 @@ let maxTableViewCellHeight = UIScreen.main.bounds.height / 3
 class MainTableViewCell: UITableViewCell {
     
     let cellIdentifier = "MainCollectionViewCell"
-    var content: Array<UserContent> = []
+    var content: Array<Content> = []
     var contentType: ContentType?
     var size = CGSize()
     
@@ -42,10 +42,9 @@ class MainTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
     }
     
-    func setup(content: Array<UserContent>, contentType: ContentType) {
+    func setup(content: Array<Content>, contentType: ContentType) {
         self.content = content
         self.contentType = contentType
     }
@@ -64,9 +63,9 @@ extension MainTableViewCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         if contentType == .contact {
-            cell.setup(title: (content[indexPath.item] as! UserContact).fullName)
+            cell.setup(title: ContactManager.shared.getContactInfo(contact: content[indexPath.item] as! Contact).fullName)
         } else {
-            cell.setup(title: (content[indexPath.item] as! UserActionType).typeName)
+            cell.setup(title: (content[indexPath.item] as! ActionType).typeName)
         }
         
         cell.button.isUserInteractionEnabled = false
@@ -76,9 +75,9 @@ extension MainTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
         if contentType == .contact {
-            detailVC.setup(content: content[indexPath.item] as! UserContact, contentType: contentType!)
+            detailVC.setup(content: content[indexPath.item] as! Contact, contentType: contentType!)
         } else {
-            detailVC.setup(content: content[indexPath.item] as! UserActionType, contentType: contentType!)
+            detailVC.setup(content: content[indexPath.item] as! ActionType, contentType: contentType!)
         }
         self.parentViewController.present(detailVC, animated: true, completion: nil)
     }
@@ -90,7 +89,7 @@ extension MainTableViewCell: UICollectionViewDelegate {
 
 extension MainTableViewCell: GridLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, widthForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let text = (contentType == .contact) ? (content[indexPath.item] as! UserContact).fullName : (content[indexPath.item] as! UserActionType).typeName
+        let text = (contentType == .contact) ? ContactManager.shared.getContactInfo(contact: content[indexPath.item] as! Contact).fullName : (content[indexPath.item] as! ActionType).typeName
         let referenceSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 22)
         let calculatedSize = (text as NSString).boundingRect(with: referenceSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22.0)], context: nil)
         return max(calculatedSize.width, 50)

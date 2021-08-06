@@ -7,6 +7,7 @@
 
 import Foundation
 import Contacts
+import CoreData
 
 struct TestUserContact {
     var firstname: String
@@ -21,50 +22,129 @@ struct TestUserContact {
     }
 }
 
-protocol UserContent {
+public class UserContent: NSManagedObject {
+    
+}
+
+extension UserContent {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<UserContent> {
+        return NSFetchRequest<UserContent>(entityName: "UserContent")
+    }
+
+    @NSManaged public var identifier: String
+
+}
+
+public class UserAction: UserContent {
+
+}
+
+extension UserAction {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<UserAction> {
+        return NSFetchRequest<UserAction>(entityName: "UserAction")
+    }
+
+    @NSManaged public var actionDescription: String?
+    @NSManaged public var createDate: Date
+    @NSManaged public var finishDate: Date?
+    @NSManaged public var actionType: UserActionType
+    @NSManaged public var owner: UserContact
+
+}
+
+public class UserActionType: UserContent {
+    
+}
+
+extension UserActionType {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<UserActionType> {
+        return NSFetchRequest<UserActionType>(entityName: "UserActionType")
+    }
+    
+    @NSManaged public var typeName: String
+    @NSManaged public var actions: NSSet?
+
+}
+
+// MARK: Generated accessors for actions
+extension UserActionType {
+
+    @objc(addActionsObject:)
+    @NSManaged public func addToActions(_ value: UserAction)
+
+    @objc(removeActionsObject:)
+    @NSManaged public func removeFromActions(_ value: UserAction)
+
+    @objc(addActions:)
+    @NSManaged public func addToActions(_ values: NSSet)
+
+    @objc(removeActions:)
+    @NSManaged public func removeFromActions(_ values: NSSet)
+
+}
+
+public class UserContact: UserContent {
+    
+}
+
+extension UserContact {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<UserContact> {
+        return NSFetchRequest<UserContact>(entityName: "UserContact")
+    }
+
+//    @NSManaged public var familyName: String?
+//    @NSManaged public var givenname: String?
+//    @NSManaged public var jobTitle: String?
+//    @NSManaged public var middleName: String?
+//    @NSManaged public var nickName: String?
+//    @NSManaged public var actions: NSSet?
+
+//    var fullName: String {
+//        return (givenname ?? "") + (middleName ?? "") + (familyName ?? "")
+//    }
+}
+
+// MARK: Generated accessors for actions
+extension UserContact {
+
+    @objc(addActionsObject:)
+    @NSManaged public func addToActions(_ value: UserAction)
+
+    @objc(removeActionsObject:)
+    @NSManaged public func removeFromActions(_ value: UserAction)
+
+    @objc(addActions:)
+    @NSManaged public func addToActions(_ values: NSSet)
+
+    @objc(removeActions:)
+    @NSManaged public func removeFromActions(_ values: NSSet)
+
+}
+
+protocol Content {
     var identifier: String { get set }
 }
 
-struct UserContact: UserContent {
-    var identifier: String
-    var givenName: String?
-    var middleName: String?
-    var familyName: String?
-    var jobTitle: String?
-    var nickName: String?
-    var actions: [UserAction]?
-    
-    var fullName: String {
-        return "\(givenName ?? "") \(middleName ?? " ") \(familyName ?? "")"
-//        print("given: \(givenName ?? "!"), middle: \(middleName ?? "!"), family: \(familyName ?? "!")")
-//        return (givenName ?? " ") + (middleName ?? " ") + (familyName ?? " ")
-    }
-}
-
-struct UserActionType: UserContent {
-    var identifier: String
+struct ActionType: Content {
     var typeName: String
-    var actions: [UserAction]?
+    var identifier: String
+    var actions: [Action]?
 }
 
-struct UserAction: UserContent {
+struct Action: Content {
     var identifier: String
-    var actionDescription: String?
+    var actionDescription: String
     var createDate: Date
     var finishDate: Date?
-    var actionType: UserActionType
-    var owner: UserContact
+    var owner: Contact
+    var actionType: ActionType
 }
 
-//struct UserContactDetail: UserContent {
-//    var identifier: String
-//    var givenName: String?
-//    var middleName: String?
-//    var familyName: String?
-//    var jobTitle: String?
-//    var nickName: String?
-//
-//    var fullName: String {
-//        return (givenName ?? "") + (middleName ?? " ") + (familyName ?? "")
-//    }
-//}
+struct Contact: Content {
+    var identifier: String
+    var actions: [Action]?
+}

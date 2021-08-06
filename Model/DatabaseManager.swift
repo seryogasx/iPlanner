@@ -10,7 +10,7 @@ import CoreData
 
 class DatabaseManager {
     
-    public var shared = DatabaseManager()
+    public static var shared = DatabaseManager()
     
     lazy var persistentContainer: NSPersistentContainer = {
        let container = NSPersistentContainer(name: "Model")
@@ -42,16 +42,10 @@ class DatabaseManager {
 
 // MARK: UserActionType functions
 extension DatabaseManager {
-    func addUserActionType(_ actionType: UserActionType) {
-//        guard let entity = NSEntityDescription.entity(forEntityName: "UserActionType", in: mainContext) else {
-//            return
-//        }
+//    func addUserActionType(_ actionType: UserActionType) {
 //
-//        let newActionType = NSManagedObject(entity: entity, insertInto: mainContext)
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserAction")
-//        get
-    }
-    
+//    }
+//
 //    func getUserActionType() -> UserActionType? {
 //
 //    }
@@ -77,7 +71,7 @@ extension DatabaseManager {
         
         let actionTypeFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserActionType")
         let contactFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserContact")
-        actionTypeFetchRequest.predicate = NSPredicate(format: "identifier == %@", userAction.actionType.identifier)
+        actionTypeFetchRequest.predicate = NSPredicate(format: "identifier == %@", userAction.owner.identifier)
         contactFetchRequest.predicate = NSPredicate(format: "identifier == %@", userAction.owner.identifier)
         
         do {
@@ -139,6 +133,36 @@ extension DatabaseManager {
             try mainContext.save()
         } catch {
             print("DatabaseManager error! Failed to update userAction!: \(error.localizedDescription)")
+        }
+    }
+    
+    func findUserAction(_ identifier: String) -> UserAction? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserAction")
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+        
+        do {
+            var userAction: UserAction?
+            let result = try mainContext.fetch(fetchRequest)
+            for data in result {
+                if let data = data as? NSManagedObject {
+//                    userAction = UserAction(identifier: data.value(forKey: "identifier") as? String ?? "",
+//                                            actionDescription: data.value(forKey: "actionDescription") as? String ?? nil,
+//                                            createDate: data.value(forKey: "createDate") as! Date,
+//                                            finishDate: data.value(forKey: "finishDate") as? Date ?? nil,
+//                                            actionType: data.value(forKey: "actionType") as! UserActionType,
+//                                            owner: data.value(forKey: "owner") as! UserContact)
+                    userAction = UserAction()
+                    userAction?.identifier = data.value(forKey: "identifier") as? String ?? ""
+                    userAction?.actionDescription = data.value(forKey: "actionDescription") as? String ?? nil
+                    userAction?.createDate = data.value(forKey: "createDate") as! Date
+                    userAction?.finishDate = data.value(forKey: "finishDate") as? Date ?? nil
+                    userAction?.actionType = data.value(forKey: "actionType") as! UserActionType
+                }
+            }
+            return userAction
+        } catch {
+            print("DatabaseManager error! Failed to find userAction!: \(error.localizedDescription)")
+            return nil
         }
     }
 }
